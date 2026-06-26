@@ -1,4 +1,5 @@
 from fastmcp import FastMCP
+from fastmcp.exceptions import ToolError
 
 mcp = FastMCP("research-assistant")
 
@@ -26,6 +27,22 @@ def word_count(text: str) -> int:
         text: The text to count words in.
     """
     return len(text.split())
+
+@mcp.tool()
+def get_note(index: int) -> str:
+    """Return a single research note by its index (0-based).
+
+    Args:
+        index: Position of the note, from 0 to 2.
+    """
+    notes = [
+        "MCP exposes tools and resources to a model.",
+        "A tool performs an action; a resource provides read-only context.",
+        "The isError flag signals a tool failure back to the model.",
+    ]
+    if index < 0 or index >= len(notes):
+        raise ToolError(f"index {index} is out of range (valid: 0-{len(notes) - 1})")
+    return notes[index]
 
 
 @mcp.resource("config://about")
