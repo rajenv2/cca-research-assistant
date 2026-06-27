@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__research-assistant__search_notes",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/vijaykumarrajendrarao/cca-research-assistant/.claude/hooks/block-secrets.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
