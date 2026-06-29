@@ -1,0 +1,25 @@
+name: Claude PR Review
+on:
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Claude review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Review the changes in this pull request. Focus on correctness,
+            error handling, and security. Post your findings as a concise PR
+            comment. If the changes look good, say so briefly.
+          claude_args: "--max-turns 10 --model claude-sonnet-4-6"
