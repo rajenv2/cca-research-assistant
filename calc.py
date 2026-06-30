@@ -4,3 +4,7 @@ def divide(a, b):
 
 def read_config(path):
     return open(path).read()
+
+
+def to_upper(s):
+    return s.upper()
